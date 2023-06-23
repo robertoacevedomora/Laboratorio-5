@@ -14,9 +14,7 @@
 #include <Arduino_LSM9DS1.h>
 
 const float accelerationThreshold = 2.5; // threshold of significant in G's
-const int numSamples = 119;
-
-int samplesRead = numSamples;
+//Quitar cantidad de muestras
 
 void setup() {
   Serial.begin(9600);
@@ -25,14 +23,12 @@ void setup() {
   if (!IMU.begin()) {
     Serial.println("Failed to initialize IMU!");
     while (1);
-  }
-
-  // print the header
-  Serial.println("aX,aY,aZ,gX,gY,gZ");
+}
 }
 
 void loop() {
   float aX, aY, aZ, gX, gY, gZ;
+  unsigned long timestamp = millis();
 
   if (IMU.accelerationAvailable() && IMU.gyroscopeAvailable()) {
       // read the acceleration and gyroscope data
@@ -41,17 +37,17 @@ void loop() {
 
       // print the data in CSV format
       Serial.print('\t');
-      Serial.print(aX, 3);
-      Serial.print(',');
-      Serial.print(aY, 3);
-      Serial.print(',');
-      Serial.print(aZ, 3);
-      Serial.print(',');
-      Serial.print(gX, 3);
-      Serial.print(',');
-      Serial.print(gY, 3);
-      Serial.print(',');
-      Serial.println(gZ, 3);
+      Serial.print(aX);
+      Serial.print('\t');
+      Serial.print(aY);
+      Serial.print('\t');
+      Serial.print(aZ);
+      Serial.print('\t');
+      Serial.print(gX);
+      Serial.print('\t');
+      Serial.print(gY);
+      Serial.print('\t');
+      Serial.println(gZ);
       //Serial.println();
   }
 }
